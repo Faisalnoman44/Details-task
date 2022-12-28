@@ -45,7 +45,7 @@ const AddTask = () => {
 
     return (
         <div className='h-screen dark:bg-slate-600'>
-            <h3 className='text-2xl font-semibold text-center pt-4 text-blue-500 dark:text-teal-400 '>Add Your Daily Task</h3>
+            <h3 className='text-2xl font-semibold text-center pt-4 text-slate-700 dark:text-white '>Add Your Daily Task</h3>
             <form onSubmit={handleSubmit(handleSubmitButton)} className='mt-5 px-10'>
                 <div className='grid grid-cols-1 gap-6'>
                     <div className='form-control w-full max-w-[450px] mx-auto'>

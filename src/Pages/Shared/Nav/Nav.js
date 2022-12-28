@@ -67,10 +67,10 @@ const Nav = () => {
 
     return (
         <div className=" max-w-6xl shadow-xl bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600">
-            <Navbar >
+            <Navbar className='fixed w-full z-20 top-0  max-w-6xl'>
                 <Navbar.Brand href="https://flowbite.com/">
-                    <img src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
-                    <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Flowbite</span>
+                    <img src="https://play-lh.googleusercontent.com/pjUulZ-Vdo7qPKxk3IRhnk8SORPlgSydSyYEjm7fGcoXO8wDyYisWXwQqEjMryZ_sqK2" className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
+                    <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Daily Task</span>
                 </Navbar.Brand>
                 <div className="flex md:order-2 ">
                     {
@@ -86,6 +86,7 @@ const Nav = () => {
                     <Link className='font-semibold text-lg hover:text-blue-500 dark:hover:text-teal-500 ' to='/completedtask'>Completed Task</Link>
                 </Navbar.Collapse>
             </Navbar>
+            
         </div>
     );
 };

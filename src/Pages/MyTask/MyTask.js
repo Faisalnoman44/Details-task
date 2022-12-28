@@ -2,11 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import { Button, Modal } from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const MyTask = () => {
 
     const [openModal, setOpenModal] = useState('');
     const [taskId, setTaskId] = useState('')
+    const navigate = useNavigate()
     const { data: alltask = [], refetch } = useQuery({
         queryKey: ['allTask'],
         queryFn: async () => {
@@ -31,12 +33,26 @@ const MyTask = () => {
             })
         setOpenModal(undefined)
     }
+    
+    const completeButton = id =>{
+        console.log(id)
+        fetch(`http://localhost:5000/task/${id}`,{
+            method: 'PUT',
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            navigate('/completedtask')
+        })
+    }
+
+    
 
     return (
         <div>
 
             <div className="overflow-x-auto relative shadow-md dark:bg-slate-700 h-screen pt-2 ">
-                <table className="max-w-3xl mx-auto w-full text-sm text-left text-gray-500 dark:text-gray-400 sm:rounded-lg">
+                <table className="max-w-4xl mx-auto w-full text-sm text-left text-gray-500 dark:text-gray-400 sm:rounded-lg">
                     <caption className="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-slate-700">
                         My Task
                     </caption>
@@ -93,7 +109,7 @@ const MyTask = () => {
 
                                     </td>
                                     <td className="py-4 px-6 ">
-                                        <button type="button" className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-2 focus:outline-none focus:ring-blue-300  dark:bg-gradient-to-r dark:from-green-400 dark:via-green-500 dark:to-green-600 dark:hover:bg-gradient-to-br dark:focus:ring-2 dark:focus:outline-none dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-3 md:px-5 py-2.5 text-center mr-2 mb-2">Complete</button>
+                                        <button type="button" className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-2 focus:outline-none focus:ring-blue-300  dark:bg-gradient-to-r dark:from-green-400 dark:via-green-500 dark:to-green-600 dark:hover:bg-gradient-to-br dark:focus:ring-2 dark:focus:outline-none dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-3 md:px-5 py-2.5 text-center mr-2 mb-2" onClick={() => completeButton(task._id)}>Complete</button>
 
                                     </td>
                                 </tr>
