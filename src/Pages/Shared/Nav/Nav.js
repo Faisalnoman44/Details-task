@@ -81,9 +81,9 @@ const Nav = () => {
                     <Navbar.Toggle />
                 </div>
                 <Navbar.Collapse className='text-slate-700 dark:text-gray-400 '>
-                    <Link className='font-semibold text-lg hover:text-blue-500 dark:hover:text-teal-500 ' to='/'>Add Task</Link>
-                    <Link className='font-semibold text-lg hover:text-blue-500 dark:hover:text-teal-500 ' to=''>My Task</Link>
-                    <Link className='font-semibold text-lg hover:text-blue-500 dark:hover:text-teal-500 ' to=''>Completed Task</Link>
+                    <Link className='font-semibold text-lg hover:text-blue-500 dark:hover:text-teal-500 ' to='/addtask'>Add Task</Link>
+                    <Link className='font-semibold text-lg hover:text-blue-500 dark:hover:text-teal-500 ' to='/mytask'>My Task</Link>
+                    <Link className='font-semibold text-lg hover:text-blue-500 dark:hover:text-teal-500 ' to='/completedtask'>Completed Task</Link>
                 </Navbar.Collapse>
             </Navbar>
         </div>

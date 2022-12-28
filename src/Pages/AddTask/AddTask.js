@@ -4,8 +4,7 @@ import { useForm } from 'react-hook-form';
 const AddTask = () => {
 
     const { register, handleSubmit } = useForm()
-    const imgbbHostKey = process.env.REACT_APP_imgbbkey ;
-    console.log(imgbbHostKey)
+    const imgbbHostKey = process.env.REACT_APP_imgbbkey;
 
     const handleSubmitButton = data => {
         const image = data.photo[0];
@@ -17,8 +16,18 @@ const AddTask = () => {
             method: 'POST',
             body: formData
         })
-        .then(res => res.json())
-        .then(imgData => console.log(imgData))
+            .then(res => res.json())
+            .then(imgData => {
+                console.log(imgData)
+                if (imgData.success) {
+                    const taskDetails = {
+                        image: imgData.data.url,
+                        task: data.task
+                    }
+                    console.log(taskDetails);
+
+                }
+            })
     }
 
     return (
