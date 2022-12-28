@@ -17,7 +17,7 @@ const MyTask = () => {
         }
     })
 
-    const handleDelete = () => {g
+    const handleDelete = () => {
         // console.log(taskId)
         fetch(`http://localhost:5000/task/${taskId}`, {
             method: 'DELETE',
