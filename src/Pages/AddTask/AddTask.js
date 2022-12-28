@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 
 const AddTask = () => {
 
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, formState: { errors }, } = useForm()
     const imgbbHostKey = process.env.REACT_APP_imgbbkey;
 
     const handleSubmitButton = data => {
@@ -45,13 +45,28 @@ const AddTask = () => {
                             })} className="bg-gray-50 border border-blue-400 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-white dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:border-teal-600 max-w-[450px] mx-auto" placeholder="Please inter your task " />
                     </div>
                     <div className="form-control w-full max-w-[450px] mx-auto">
-                        <label className="label">
+
+                        <div className="flex items-center justify-center w-full ">
+                            <label htmlFor="dropzone-file" className="flex flex-col items-center border-blue-400 justify-center w-full h-64 border-2  border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-teal-600 dark:hover:border-gray-500 dark:hover:bg-gray-800">
+                                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <svg aria-hidden="true" className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                </div>
+                                <input {...register("photo", {
+                                    required: 'Photo is required',
+                                })}
+                                   required id="dropzone-file" type="file" className=""/>
+                            </label>
+                        </div>
+
+                        {/* <label className="label">
                             <span className="label-text block mb-2 font-semibold text-lg text-gray-900 dark:text-white">Photo</span>
                         </label>
                         <input type="file"
                             {...register("photo", {
                                 required: 'Photo is required'
-                            })} className="border border-blue-400 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-teal-600 dark:placeholder-white dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " />
+                            })} className="border border-blue-400 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-teal-600 dark:placeholder-white dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " /> */}
                     </div>
                 </div>
                 <div className='text-center mt-5'>
@@ -60,16 +75,6 @@ const AddTask = () => {
                 <div>
                 </div>
             </form>
-            {/* <div>
-                <div className="max-w-[450px] mx-auto pt-10">
-                    <label for="email" className="block mb-2 font-semibold text-lg text-gray-900 dark:text-white">Task</label>
-                    <input type="text" id="task" className="bg-gray-50 border border-blue-400 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-white dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Please inter your task" required />
-                </div>
-                <div className='text-center mt-5'>
-                    <button type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-2 focus:outline-none focus:ring-blue-300  dark:bg-gradient-to-r dark:from-teal-400 dark:via-teal-500 dark:to-teal-600 dark:hover:bg-gradient-to-br dark:focus:ring-2 dark:focus:outline-none dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">submit</button>
-
-                </div>
-            </div> */}
         </div>
     );
 };
