@@ -1,10 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 const AddTask = () => {
 
-    const { register, handleSubmit, formState: { errors }, } = useForm()
+    const { register, handleSubmit } = useForm()
     const imgbbHostKey = process.env.REACT_APP_imgbbkey;
+    const navigate = useNavigate()
 
     const handleSubmitButton = data => {
         const image = data.photo[0];
@@ -24,7 +26,18 @@ const AddTask = () => {
                         image: imgData.data.url,
                         task: data.task
                     }
-                    console.log(taskDetails);
+                    fetch('http://localhost:5000/task', {
+                        method: 'POST',
+                        headers: {
+                            'content-type' : 'application/json',
+                        },
+                        body: JSON.stringify(taskDetails)
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                        navigate('/mytask')
+                    })
 
                 }
             })
