@@ -67,9 +67,9 @@ const Nav = () => {
 
     return (
         <div className=" max-w-6xl shadow-xl bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600">
-            <Navbar className='fixed w-full z-20 top-0  max-w-6xl'>
+            <Navbar className='fixed w-full z-20 top-0 max-w-6xl bg-blue-500'>
                 <Navbar.Brand href="https://flowbite.com/">
-                    <img src="https://play-lh.googleusercontent.com/pjUulZ-Vdo7qPKxk3IRhnk8SORPlgSydSyYEjm7fGcoXO8wDyYisWXwQqEjMryZ_sqK2" className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKJLyunViTG4Y2n2SOSy9eneY9rJC6IYzWbQ&usqp=CAU" className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
                     <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Daily Task</span>
                 </Navbar.Brand>
                 <div className="flex md:order-2 ">
@@ -80,10 +80,10 @@ const Nav = () => {
                     }
                     <Navbar.Toggle />
                 </div>
-                <Navbar.Collapse className='text-slate-700 dark:text-gray-400 '>
-                    <Link className='font-semibold text-lg hover:text-blue-500 dark:hover:text-teal-500 ' to='/addtask'>Add Task</Link>
-                    <Link className='font-semibold text-lg hover:text-blue-500 dark:hover:text-teal-500 ' to='/mytask'>My Task</Link>
-                    <Link className='font-semibold text-lg hover:text-blue-500 dark:hover:text-teal-500 ' to='/completedtask'>Completed Task</Link>
+                <Navbar.Collapse className='text-white dark:text-gray-400 '>
+                    <Link className='font-semibold text-lg hover:text-gray-300 dark:hover:text-teal-500 ' to='/addtask'>Add Task</Link>
+                    <Link className='font-semibold text-lg hover:text-gray-300 dark:hover:text-teal-500 ' to='/mytask'>My Task</Link>
+                    <Link className='font-semibold text-lg hover:text-gray-300 dark:hover:text-teal-500 ' to='/completedtask'>Completed Task</Link>
                 </Navbar.Collapse>
             </Navbar>
             

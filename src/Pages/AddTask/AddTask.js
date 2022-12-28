@@ -72,14 +72,6 @@ const AddTask = () => {
                                    required id="dropzone-file" type="file" className=""/>
                             </label>
                         </div>
-
-                        {/* <label className="label">
-                            <span className="label-text block mb-2 font-semibold text-lg text-gray-900 dark:text-white">Photo</span>
-                        </label>
-                        <input type="file"
-                            {...register("photo", {
-                                required: 'Photo is required'
-                            })} className="border border-blue-400 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-teal-600 dark:placeholder-white dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " /> */}
                     </div>
                 </div>
                 <div className='text-center mt-5'>

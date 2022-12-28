@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Button, Modal } from 'flowbite-react';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { HiOutlineExclamationCircle, HiCheck } from 'react-icons/hi';
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -39,10 +39,10 @@ const CompletedTask = () => {
     }
 
     const handleSubmitButton = data => {
-        console.log(data)
+       console.log(data);
     }
 
-    const notCompletedButton = () =>{
+    const notCompletedButton = () => {
         navigate('/mytask')
     }
 
@@ -80,7 +80,7 @@ const CompletedTask = () => {
                                         <td className="py-4 px-6 text-center">
                                             {
                                                 task.isCompleted === 'completed' ?
-                                                
+
                                                     <div className='text-center'>
                                                         <svg className="w-5 h-5 text-green-500 text-center" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
                                                     </div>
@@ -105,11 +105,11 @@ const CompletedTask = () => {
                                         <td className="py-4 px-6 text-center">
                                             {
                                                 task.isCompleted === 'completed' ?
-                                                <button type="button" className="text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-2 focus:outline-none focus:ring-blue-300  dark:bg-gradient-to-r dark:from-red-600 dark:via-red-400 dark:to-red-500 dark:hover:bg-gradient-to-br dark:focus:ring-2 dark:focus:outline-none dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-3 md:px-5 py-2.5 text-center mr-2 mb-2" onClick={() => setOpenModal('pop-up', setTaskId(task._id))} >Delete</button>
-                                                :
-                                                <p className='py-4 px-6 text-gray-500 dark:text-white font-bold text-center'>Not Available</p>
+                                                    <button type="button" className="text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-2 focus:outline-none focus:ring-blue-300  dark:bg-gradient-to-r dark:from-red-600 dark:via-red-400 dark:to-red-500 dark:hover:bg-gradient-to-br dark:focus:ring-2 dark:focus:outline-none dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-3 md:px-5 py-2.5 text-center mr-2 mb-2" onClick={() => setOpenModal('pop-up', setTaskId(task._id))} >Delete</button>
+                                                    :
+                                                    <p className='py-4 px-6 text-gray-500 dark:text-white font-bold text-center'>Not Available</p>
                                             }
-                                            
+
 
                                             {/* //modal */}
 
@@ -136,13 +136,13 @@ const CompletedTask = () => {
                                         </td>
                                         <td className="py-4 px-2 md:px-6 text-center">
 
-                                            <form className='' onSubmit={handleSubmit(handleSubmitButton)}>
+                                            <form className=''>
                                                 <div className="w-full border border-blue-400 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 ">
                                                     <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                                                         <label htmlFor="comment" className="sr-only">Your comment</label>
                                                         <textarea
-                                                            {...register("comment", {
-                                                                required: 'comment is required'
+                                                            {...register("task", {
+                                                                required: 'Task is required'
                                                             })}
                                                             id="comment" rows="1" className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write a comment..." required></textarea>
                                                     </div>
