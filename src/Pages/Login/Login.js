@@ -1,18 +1,52 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthProvider';
+import Loading from '../Shared/Loading/Loading';
 
 const Login = () => {
 
+    const { loading,logIn, googleSignIn } = useContext(AuthContext)
+    const [loginError, setLoginError] = useState('')
+    const navigate = useNavigate()
+
+
     const { register, handleSubmit, formState: { errors } } = useForm()
 
-    const handleLogin = data =>{
+
+    const handleLogin = data => {
+        
         console.log(data)
+        logIn(data.email, data.password)
+            .then(result => {
+                if(loading){
+                    return <Loading></Loading>
+                }
+                setLoginError('')
+                const user = result.user;
+                navigate('/addtask')
+                console.log(user)
+            })
+            .catch(err => {
+                console.log(err.message)
+                setLoginError(err.message)
+            })
+
     }
+
+    const handleGoogleSingIn = () => {
+
+        googleSignIn()
+            .then(result => {
+                console.log(result.user);
+            })
+            .catch(err => console.log(err))
+    }
+
 
     return (
         <div className='flex justify-center items-center'>
-            <div className="mt-40 flex justify-center items-center w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0  md:h-full ">
+            <div className="my-20 md:mt-28 flex justify-center items-center w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0  md:h-full ">
                 <div className="relative w-full h-full max-w-md md:h-auto">
                     <div className="relative bg-blue-400 rounded-lg shadow dark:bg-gray-700 max-w-[350px] mx-auto border-blue-500">
                         <div className="px-6 py-6 lg:px-8">
@@ -34,13 +68,22 @@ const Login = () => {
                                             required: "Password Address is required"
                                         })}
                                         name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
-                                        {errors.password && <p className='text-error' role="alert">{errors.password?.message}</p>}
+                                    {errors.password && <p className='text-error' role="alert">{errors.password?.message}</p>}
                                 </div>
-                                <input type="submit" value='Log In to your account' className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"/>
-                                <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                                    Not registered? <Link to='/signup' className="text-blue-700 hover:underline dark:text-blue-500">Create account</Link>
+                                <input type="submit" value='Log In to your account' className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" />
+                                <div>
+                                    {loginError && <p className='text-red-600'>{loginError}</p>}
                                 </div>
                             </form>
+                            <div onClick={() => handleGoogleSingIn()} className='w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-5 text-center'>
+                                <button className='flex text-center'>
+                                    <img className='h-8 w-8 ml-16 mr-3' src="https://www.transparentpng.com/thumb/google-logo/google-logo-png-icon-free-download-SUF63j.png" alt="" />
+                                    <p className='mt-1'>Continue with google</p>
+                                </button>
+                            </div>
+                            <div className="text-sm font-medium text-gray-500 dark:text-gray-300 mt-3">
+                                Not registered? <Link to='/signup' className="text-blue-700 hover:underline dark:text-blue-500">Create account</Link>
+                            </div>
                         </div>
                     </div>
                 </div>

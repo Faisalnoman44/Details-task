@@ -1,8 +1,11 @@
 import { Navbar } from 'flowbite-react';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../Context/AuthProvider';
 
 const Nav = () => {
+
+    const {logOut, user } = useContext(AuthContext)
 
 
     const [theme, setTheme] = useState(
@@ -64,9 +67,15 @@ const Nav = () => {
         }
     })
 
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(err => console.log(err))
+    }
+
 
     return (
-        <div className=" max-w-6xl shadow-xl bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600">
+        <div className=" max-w-6xl shadow-xl bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 mb-12">
             <Navbar className='fixed w-full z-20 top-0 max-w-6xl bg-blue-500'>
                 <Navbar.Brand href="https://flowbite.com/">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKJLyunViTG4Y2n2SOSy9eneY9rJC6IYzWbQ&usqp=CAU" className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
@@ -84,9 +93,15 @@ const Nav = () => {
                     <Link className='font-semibold text-lg hover:text-gray-300 dark:hover:text-teal-500 ' to='/addtask'>Add Task</Link>
                     <Link className='font-semibold text-lg hover:text-gray-300 dark:hover:text-teal-500 ' to='/mytask'>My Task</Link>
                     <Link className='font-semibold text-lg hover:text-gray-300 dark:hover:text-teal-500 ' to='/completedtask'>Completed Task</Link>
+                    {
+                        user?.email ?
+                            <Link onClick={handleLogOut} className='font-semibold text-lg hover:text-gray-300 dark:hover:text-teal-500 ' >Logout</Link> :
+                            <Link className='font-semibold text-lg hover:text-gray-300 dark:hover:text-teal-500 ' to='/login'>Login</Link>
+                    }
+
                 </Navbar.Collapse>
             </Navbar>
-            
+
         </div>
     );
 };

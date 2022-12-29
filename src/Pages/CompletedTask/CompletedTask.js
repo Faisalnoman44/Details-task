@@ -11,6 +11,7 @@ const CompletedTask = () => {
     const { register, handleSubmit } = useForm()
     const [openModal, setOpenModal] = useState('');
     const [taskId, setTaskId] = useState('')
+    const [commentTaskId, setCommentTaskId] = useState(null)
     const navigate = useNavigate()
 
     const { data: alltask = [], refetch } = useQuery({
@@ -39,7 +40,34 @@ const CompletedTask = () => {
     }
 
     const handleSubmitButton = data => {
-       console.log(data);
+        const id = commentTaskId
+        console.log(id)
+        const comment = {
+          comment: data.comment
+        }
+        console.log(comment);
+        const url = `http://localhost:5000/completedtask/${id}`
+        console.log(url);
+        fetch(url,{
+            method: 'PUT',
+            headers: {
+                'content-type' : 'application/json',
+            },
+            body: JSON.stringify(comment)
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if(data.modifiedCount > 0){
+                setCommentTaskId(null)
+                refetch()
+            }
+        })
+
+    }
+
+    const handleIdGet = id => {
+        setCommentTaskId(id)
     }
 
     const notCompletedButton = () => {
@@ -50,7 +78,7 @@ const CompletedTask = () => {
         <div>
             <div>
 
-                <div className="overflow-x-auto relative shadow-md dark:bg-slate-700 h-screen pt-2 ">
+                <div className="overflow-x-auto relative shadow-md dark:bg-slate-700 min-h-screen pt-2 ">
                     <table className="max-w-4xl mx-auto w-full text-sm text-left text-gray-500 dark:text-gray-400 sm:rounded-lg">
                         <caption className="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-slate-700">
                             My Task
@@ -135,25 +163,30 @@ const CompletedTask = () => {
 
                                         </td>
                                         <td className="py-4 px-2 md:px-6 text-center">
-
-                                            <form className=''>
-                                                <div className="w-full border border-blue-400 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 ">
-                                                    <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
-                                                        <label htmlFor="comment" className="sr-only">Your comment</label>
-                                                        <textarea
-                                                            {...register("task", {
-                                                                required: 'Task is required'
-                                                            })}
-                                                            id="comment" rows="1" className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write a comment..." required></textarea>
-                                                    </div>
-                                                    <div className="flex items-center justify-between px-2 py-2 border-t dark:border-gray-600">
-                                                        <input type="submit" value='comment' className="inline-flex items-center py-2.5 px-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-2 focus:ring-blue-200 dark:bg-gradient-to-r dark:from-teal-400 dark:via-teal-500 dark:to-teal-600 dark:hover:bg-gradient-to-br
+                                            {
+                                                task.isCompleted === 'completed' ?
+                                                task.comment ? <p className='py-4 px-6 text-gray-500 dark:text-teal-400 font-bold text-center'>{task.comment}</p> :
+                                                    <form onSubmit={handleSubmit(handleSubmitButton)} className=''>
+                                                        <div className="w-full border border-blue-400 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 ">
+                                                            <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
+                                                                <label htmlFor="comment" className="sr-only">Your comment</label>
+                                                                <textarea
+                                                                    {...register("comment", {
+                                                                        required: 'comment is required'
+                                                                    })}
+                                                                    id="comment" rows="1" className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write a comment..." required></textarea>
+                                                            </div>
+                                                            <div className="flex items-center justify-between px-2 py-2 border-t dark:border-gray-600">
+                                                                <input onClick={() => handleIdGet(task._id)} type="submit" value='comment' className="inline-flex items-center py-2.5 px-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-2 focus:ring-blue-200 dark:bg-gradient-to-r dark:from-teal-400 dark:via-teal-500 dark:to-teal-600 dark:hover:bg-gradient-to-br
                                                         dark:focus:ring-blue-900 hover:bg-blue-800">
-                                                        </input>
+                                                                </input>
 
-                                                    </div>
-                                                </div>
-                                            </form>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    :
+                                                    <p className='py-4 px-6 text-gray-500 dark:text-white font-bold text-center'>Not Available</p>
+                                            }
                                         </td>
                                     </tr>
                                 )

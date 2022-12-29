@@ -20,7 +20,7 @@ const MyTask = () => {
     })
 
     const handleDelete = () => {
-        // console.log(taskId)
+        console.log(typeof(taskId))
         fetch(`http://localhost:5000/task/${taskId}`, {
             method: 'DELETE',
         })
