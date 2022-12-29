@@ -81,7 +81,7 @@ const CompletedTask = () => {
                 <div className="overflow-x-auto relative shadow-md dark:bg-slate-700 min-h-screen pt-2 ">
                     <table className="max-w-4xl mx-auto w-full text-sm text-left text-gray-500 dark:text-gray-400 sm:rounded-lg">
                         <caption className="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-slate-700">
-                            My Task
+                            Completed Task
                         </caption>
                         <thead className="text-xs text-white uppercase bg-gradient-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-gradient-to-br dark:bg-gradient-to-r dark:from-teal-400 dark:via-teal-500 dark:to-teal-600 dark:hover:bg-gradient-to-br dark:text-white p-10 rounded-md">
                             <tr className='border-blue-400 dark:border-teal-600'>

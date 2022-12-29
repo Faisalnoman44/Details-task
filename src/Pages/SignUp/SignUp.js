@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 
 const SignUp = () => {
@@ -8,6 +8,8 @@ const SignUp = () => {
     const { createUser, googleSignIn } = useContext(AuthContext)
     const [signUpError, setSignUpError] = useState('')
     const navigate = useNavigate()
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
     const { register, handleSubmit, formState: { errors } } = useForm()
 
@@ -17,7 +19,7 @@ const SignUp = () => {
             .then(result => {
                 console.log(result.user)
                 setSignUpError('')
-                navigate('/addtask')
+                navigate(from, { replace: true })
             })
             .catch(err => console.log(err))
     }
@@ -35,7 +37,7 @@ const SignUp = () => {
 
     return (
         <div className='flex justify-center items-center'>
-            <div className="my-20 md:mt-28 flex justify-center items-center w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0  md:h-full ">
+            <div className="my-20 md:mt-16 flex justify-center items-center w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0  md:h-full ">
                 <div className="relative w-full h-full max-w-md md:h-auto">
                     <div className="relative bg-blue-400 rounded-lg shadow dark:bg-gray-700 max-w-[350px] mx-auto border-blue-500">
                         <div className="px-6 py-6 lg:px-8">

@@ -1,30 +1,32 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import Loading from '../Shared/Loading/Loading';
 
 const Login = () => {
 
-    const { loading,logIn, googleSignIn } = useContext(AuthContext)
+    const { loading, logIn, googleSignIn } = useContext(AuthContext)
     const [loginError, setLoginError] = useState('')
     const navigate = useNavigate()
+    const location = useLocation();
+    const from = location.state?.form?.pathname || '/'
 
 
     const { register, handleSubmit, formState: { errors } } = useForm()
 
 
     const handleLogin = data => {
-        
+
         console.log(data)
         logIn(data.email, data.password)
             .then(result => {
-                if(loading){
+                if (loading) {
                     return <Loading></Loading>
                 }
                 setLoginError('')
                 const user = result.user;
-                navigate('/addtask')
+                navigate(from, { replace: true })
                 console.log(user)
             })
             .catch(err => {
@@ -46,7 +48,7 @@ const Login = () => {
 
     return (
         <div className='flex justify-center items-center'>
-            <div className="my-20 md:mt-28 flex justify-center items-center w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0  md:h-full ">
+            <div className="my-20 md:mt-16 flex justify-center items-center w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0  md:h-full ">
                 <div className="relative w-full h-full max-w-md md:h-auto">
                     <div className="relative bg-blue-400 rounded-lg shadow dark:bg-gray-700 max-w-[350px] mx-auto border-blue-500">
                         <div className="px-6 py-6 lg:px-8">

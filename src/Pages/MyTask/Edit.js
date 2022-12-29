@@ -1,17 +1,21 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import Loading from '../Shared/Loading/Loading';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 
-const AddTask = () => {
+const Edit = () => {
 
+    const oneTask = useLoaderData()
+    const { _id, task} = oneTask
+
+    const [updatedTaskId, setUpdatedTaskId] = useState('')
     const { register, handleSubmit } = useForm()
     const imgbbHostKey = process.env.REACT_APP_imgbbkey;
     const navigate = useNavigate()
 
     const handleSubmitButton = data => {
+        // console.log(data);
         const image = data.photo[0];
-        console.log(image);
+        // console.log(image);
         const formData = new FormData();
         formData.append('image', image);
         const url = `https://api.imgbb.com/1/upload?key=${imgbbHostKey}`
@@ -21,33 +25,35 @@ const AddTask = () => {
         })
             .then(res => res.json())
             .then(imgData => {
-                console.log(imgData)
+                // console.log(imgData)
                 if (imgData.success) {
-                    const taskDetails = {
+                    const UpdateTaskDetails = {
                         image: imgData.data.url,
                         task: data.task
                     }
-                    fetch('http://localhost:5000/task', {
-                        method: 'POST',
+                    // console.log(UpdateTaskDetails)
+                    fetch(`http://localhost:5000/task/update/${updatedTaskId}`, {
+                        method: 'PUT',
                         headers: {
-                            'content-type' : 'application/json',
+                            'content-type': 'application/json',
                         },
-                        body: JSON.stringify(taskDetails)
+                        body: JSON.stringify(UpdateTaskDetails)
                     })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data)
-                        navigate('/mytask')
-                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            // console.log(data)
+                            navigate('/mytask')
+                        })
 
                 }
             })
+
     }
 
     return (
         <div className='min-h-screen dark:bg-slate-600'>
-            <h3 className='text-2xl font-semibold text-center pt-6 text-slate-700 dark:text-white '>Add Your Daily Task</h3>
-            <form onSubmit={handleSubmit(handleSubmitButton)} className='mt-5 px-10 pb-20'>
+            <h3 className='text-2xl font-semibold text-center pt-6 text-slate-700 dark:text-white '>Edit Your Task</h3>
+            <form onSubmit={handleSubmit(handleSubmitButton)} className='mt-5 px-10'>
                 <div className='grid grid-cols-1 gap-6'>
                     <div className='form-control w-full max-w-[450px] mx-auto'>
                         <label className="label">
@@ -56,12 +62,12 @@ const AddTask = () => {
                         <input type="text"
                             {...register("task", {
                                 required: 'Task is required'
-                            })} className="bg-gray-50 border border-blue-400 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-white dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:border-teal-600 max-w-[450px] mx-auto" placeholder="Please inter your task " />
+                            })} className="bg-gray-50 border border-blue-400 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-white dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:border-teal-600 max-w-[450px] mx-auto" placeholder={task} />
                     </div>
                     <div className="form-control w-full max-w-[450px] mx-auto">
 
                         <div className="flex items-center justify-center w-full ">
-                            <label htmlFor="dropzone-file" className="flex flex-col items-center border-blue-400 justify-center w-full h-64 border-2  border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-teal-600 dark:hover:border-gray-500 dark:hover:bg-gray-800">
+                            <label htmlFor="dropzone-file" className="flex flex-col items-center border-blue-400 justify-center w-full h-52 border-2  border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-teal-600 dark:hover:border-gray-500 dark:hover:bg-gray-800">
                                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
                                     <svg aria-hidden="true" className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                                     <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
@@ -70,13 +76,13 @@ const AddTask = () => {
                                 <input {...register("photo", {
                                     required: 'Photo is required',
                                 })}
-                                   required id="dropzone-file" type="file" className=""/>
+                                    required id="dropzone-file" type="file" className="" />
                             </label>
                         </div>
                     </div>
                 </div>
                 <div className='text-center mt-5'>
-                    <input className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-2 focus:outline-none focus:ring-blue-300  dark:bg-gradient-to-r dark:from-teal-400 dark:via-teal-500 dark:to-teal-600 dark:hover:bg-gradient-to-br dark:focus:ring-2 dark:focus:outline-none dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" value='Submit' type="submit" />
+                    <input className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-2 focus:outline-none focus:ring-blue-300  dark:bg-gradient-to-r dark:from-teal-400 dark:via-teal-500 dark:to-teal-600 dark:hover:bg-gradient-to-br dark:focus:ring-2 dark:focus:outline-none dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" value='Update' type="submit" onClick={() => setUpdatedTaskId(_id)} />
                 </div>
                 <div>
                 </div>
@@ -85,4 +91,4 @@ const AddTask = () => {
     );
 };
 
-export default AddTask;
+export default Edit;
