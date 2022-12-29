@@ -11,7 +11,7 @@ const Details = () => {
 
     const completeButton = id => {
         console.log(id)
-        fetch(`http://localhost:5000/task/${id}`, {
+        fetch(`https://task-1-server.vercel.app/task/${id}`, {
             method: 'PUT',
         })
             .then(res => res.json())
@@ -37,7 +37,7 @@ const Details = () => {
                                 isCompleted === 'completed' ? <p className='py-4 px-6 text-green-500 dark:text-teal-400 font-bold text-center'>Completed</p>
                                     :
                                     <Link
-                                        
+
                                         className="inline-flex items-center rounded-lg bg-blue-700 py-2 px-4 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={() => completeButton(_id)}
                                     >
                                         Complete

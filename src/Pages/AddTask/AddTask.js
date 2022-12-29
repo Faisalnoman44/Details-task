@@ -27,18 +27,18 @@ const AddTask = () => {
                         image: imgData.data.url,
                         task: data.task
                     }
-                    fetch('http://localhost:5000/task', {
+                    fetch('https://task-1-server.vercel.app/task', {
                         method: 'POST',
                         headers: {
-                            'content-type' : 'application/json',
+                            'content-type': 'application/json',
                         },
                         body: JSON.stringify(taskDetails)
                     })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data)
-                        navigate('/mytask')
-                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data)
+                            navigate('/mytask')
+                        })
 
                 }
             })
@@ -70,7 +70,7 @@ const AddTask = () => {
                                 <input {...register("photo", {
                                     required: 'Photo is required',
                                 })}
-                                   required id="dropzone-file" type="file" className=""/>
+                                    required id="dropzone-file" type="file" className="" />
                             </label>
                         </div>
                     </div>

@@ -5,7 +5,7 @@ import { useLoaderData, useNavigate } from 'react-router-dom';
 const Edit = () => {
 
     const oneTask = useLoaderData()
-    const { _id, task} = oneTask
+    const { _id, task } = oneTask
 
     const [updatedTaskId, setUpdatedTaskId] = useState('')
     const { register, handleSubmit } = useForm()
@@ -32,7 +32,7 @@ const Edit = () => {
                         task: data.task
                     }
                     // console.log(UpdateTaskDetails)
-                    fetch(`http://localhost:5000/task/update/${updatedTaskId}`, {
+                    fetch(`https://task-1-server.vercel.app/task/update/${updatedTaskId}`, {
                         method: 'PUT',
                         headers: {
                             'content-type': 'application/json',

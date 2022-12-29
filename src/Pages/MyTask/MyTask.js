@@ -12,7 +12,7 @@ const MyTask = () => {
     const { data: alltask = [], refetch } = useQuery({
         queryKey: ['allTask'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/task')
+            const res = await fetch('https://task-1-server.vercel.app/task')
             const data = await res.json()
             // console.log(data);
             return (data)
@@ -21,7 +21,7 @@ const MyTask = () => {
 
     const handleDelete = () => {
         console.log(typeof (taskId))
-        fetch(`http://localhost:5000/task/${taskId}`, {
+        fetch(`https://task-1-server.vercel.app/task/${taskId}`, {
             method: 'DELETE',
         })
             .then(res => res.json())
@@ -36,7 +36,7 @@ const MyTask = () => {
 
     const completeButton = id => {
         console.log(id)
-        fetch(`http://localhost:5000/task/${id}`, {
+        fetch(`https://task-1-server.vercel.app/task/${id}`, {
             method: 'PUT',
         })
             .then(res => res.json())

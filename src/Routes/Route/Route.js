@@ -14,41 +14,41 @@ import PrivateRoute from '../PrivateRoute/PrivateRoute';
 const router = createBrowserRouter([
     {
         path: '/',
-        element:<Main></Main>,
-        children:[
+        element: <Main></Main>,
+        children: [
             {
-                path:'/',
-                element:<AddTask></AddTask>
+                path: '/',
+                element: <AddTask></AddTask>
             },
             {
-                path:'/addtask',
-                element:<AddTask></AddTask>
+                path: '/addtask',
+                element: <AddTask></AddTask>
             },
             {
                 path: '/mytask',
-                element:<MyTask></MyTask>
+                element: <MyTask></MyTask>
             },
             {
                 path: '/mytask/details/:id',
-                element:<PrivateRoute><Details></Details></PrivateRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/task/details/${params.id}`)
+                element: <PrivateRoute><Details></Details></PrivateRoute>,
+                loader: ({ params }) => fetch(`https://task-1-server.vercel.app/task/details/${params.id}`)
             },
             {
                 path: '/mytask/edit/:id',
-                element:<Edit></Edit>,
-                loader: ({params}) => fetch(`http://localhost:5000/task/details/${params.id}`)
+                element: <Edit></Edit>,
+                loader: ({ params }) => fetch(`https://task-1-server.vercel.app/task/details/${params.id}`)
             },
             {
-                path:'/completedtask',
-                element:<CompletedTask></CompletedTask>
+                path: '/completedtask',
+                element: <CompletedTask></CompletedTask>
             },
             {
-                path:'/login',
-                element:<Login></Login>
+                path: '/login',
+                element: <Login></Login>
             },
             {
-                path:'/signup',
-                element:<SignUp></SignUp>
+                path: '/signup',
+                element: <SignUp></SignUp>
             }
         ]
     }

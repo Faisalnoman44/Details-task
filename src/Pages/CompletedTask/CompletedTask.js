@@ -17,7 +17,7 @@ const CompletedTask = () => {
     const { data: alltask = [], refetch } = useQuery({
         queryKey: ['allTask'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/task')
+            const res = await fetch('https://task-1-server.vercel.app/task')
             const data = await res.json()
             // console.log(data);
             return (data)
@@ -26,7 +26,7 @@ const CompletedTask = () => {
 
     const handleDelete = () => {
         // console.log(taskId)
-        fetch(`http://localhost:5000/task/${taskId}`, {
+        fetch(`https://task-1-server.vercel.app/task/${taskId}`, {
             method: 'DELETE',
         })
             .then(res => res.json())
@@ -43,26 +43,26 @@ const CompletedTask = () => {
         const id = commentTaskId
         console.log(id)
         const comment = {
-          comment: data.comment
+            comment: data.comment
         }
         console.log(comment);
-        const url = `http://localhost:5000/completedtask/${id}`
+        const url = `https://task-1-server.vercel.app/completedtask/${id}`
         console.log(url);
-        fetch(url,{
+        fetch(url, {
             method: 'PUT',
             headers: {
-                'content-type' : 'application/json',
+                'content-type': 'application/json',
             },
             body: JSON.stringify(comment)
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            if(data.modifiedCount > 0){
-                setCommentTaskId(null)
-                refetch()
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.modifiedCount > 0) {
+                    setCommentTaskId(null)
+                    refetch()
+                }
+            })
 
     }
 
@@ -165,25 +165,25 @@ const CompletedTask = () => {
                                         <td className="py-4 px-2 md:px-6 text-center">
                                             {
                                                 task.isCompleted === 'completed' ?
-                                                task.comment ? <p className='py-4 px-6 text-gray-500 dark:text-teal-400 font-bold text-center'>{task.comment}</p> :
-                                                    <form onSubmit={handleSubmit(handleSubmitButton)} className=''>
-                                                        <div className="w-full border border-blue-400 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 ">
-                                                            <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
-                                                                <label htmlFor="comment" className="sr-only">Your comment</label>
-                                                                <textarea
-                                                                    {...register("comment", {
-                                                                        required: 'comment is required'
-                                                                    })}
-                                                                    id="comment" rows="1" className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write a comment..." required></textarea>
-                                                            </div>
-                                                            <div className="flex items-center justify-between px-2 py-2 border-t dark:border-gray-600">
-                                                                <input onClick={() => handleIdGet(task._id)} type="submit" value='comment' className="inline-flex items-center py-2.5 px-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-2 focus:ring-blue-200 dark:bg-gradient-to-r dark:from-teal-400 dark:via-teal-500 dark:to-teal-600 dark:hover:bg-gradient-to-br
+                                                    task.comment ? <p className='py-4 px-6 text-gray-500 dark:text-teal-400 font-bold text-center'>{task.comment}</p> :
+                                                        <form onSubmit={handleSubmit(handleSubmitButton)} className=''>
+                                                            <div className="w-full border border-blue-400 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 ">
+                                                                <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
+                                                                    <label htmlFor="comment" className="sr-only">Your comment</label>
+                                                                    <textarea
+                                                                        {...register("comment", {
+                                                                            required: 'comment is required'
+                                                                        })}
+                                                                        id="comment" rows="1" className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write a comment..." required></textarea>
+                                                                </div>
+                                                                <div className="flex items-center justify-between px-2 py-2 border-t dark:border-gray-600">
+                                                                    <input onClick={() => handleIdGet(task._id)} type="submit" value='comment' className="inline-flex items-center py-2.5 px-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-2 focus:ring-blue-200 dark:bg-gradient-to-r dark:from-teal-400 dark:via-teal-500 dark:to-teal-600 dark:hover:bg-gradient-to-br
                                                         dark:focus:ring-blue-900 hover:bg-blue-800">
-                                                                </input>
+                                                                    </input>
 
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </form>
+                                                        </form>
                                                     :
                                                     <p className='py-4 px-6 text-gray-500 dark:text-white font-bold text-center'>Not Available</p>
                                             }
